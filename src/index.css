@@ -20,3 +20,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputTime {
+  margin: 4px;
+  padding: 4px;
+  border: 1px;
+  border-color: black;
+}
