@@ -4,6 +4,7 @@ import React from 'react';
 import './App.css';
 import { hoursMinutes } from './core/time-print';
 import { extractTimeWorkHM } from './core/timer-utils';
+import ClockInput from './components/ClockInput'
 
 function App() {
   let result = "0"
@@ -14,9 +15,9 @@ function App() {
 
   function testCalc() {
     console.log("test");
-    console.log(hoursMinutes(extractTimeWorkHM(8,21,13,8)));
-    console.log(hoursMinutes(extractTimeWorkHM(13,8,14,5)));
-    console.log(hoursMinutes(extractTimeWorkHM(14,5,18,6)));
+    console.log(hoursMinutes(extractTimeWorkHM(7,55,13,8)));
+    console.log(hoursMinutes(extractTimeWorkHM(13,8,13,47)));
+    console.log(hoursMinutes(extractTimeWorkHM(13,47,17,16)));
   }
 
   testCalc();
@@ -26,11 +27,8 @@ function App() {
 
     <div className="App h-full">
 
-      Hello guys
-     
-        <div>
-          {result}
-        </div>
+      <ClockInput></ClockInput>
+
     </div>
   );
 }

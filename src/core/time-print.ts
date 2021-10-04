@@ -5,3 +5,12 @@ export const hoursMinutes = (minutes: number) => {
 
     return `${hours}h ${m}`;
 }
+
+
+export const formattedDecimal = (val: number): string => {
+    if (val > -10 && val < 10)
+        return `0${val}`;
+    else
+        return `${val}`;
+
+}
