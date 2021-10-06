@@ -13,8 +13,8 @@ export interface ClockHoursMinutesInputP {
 }
 const ClockHoursMinutesInput = (props?: ClockHoursMinutesInputP) => {
 
-    const [hours, setHours] = useState(new Date().getHours());
-    const [minutes, setMinutes] = useState(new Date().getMinutes());
+    const [hours, setHours] = useState(0);
+    const [minutes, setMinutes] = useState(0);
     const hDay = props && props.allDay === true ? true : false;
     const formatHours = hDay ? 12 : 24;
 
@@ -56,7 +56,6 @@ const ClockHoursMinutesInput = (props?: ClockHoursMinutesInputP) => {
             const valueRead = event.target.value;
             const value = parseInt(valueRead)
             if (!isNaN(value)) {
-                console.log(value)
                 switch (type) {
                     case ClockFieldSet.HOURS:
                         setHours(value % formatHours);

@@ -1,9 +1,15 @@
-export const hoursMinutes = (minutes: number) => {
+import { ClockTime } from "../model/clock-time";
+
+export const hoursMinutes = (minutes: number): ClockTime => {
 
     const hours = Math.floor(minutes / 60);
     const m = minutes % 60;
 
-    return `${hours}h ${m}`;
+    return {
+        hours: hours,
+        minutes: m,
+        hoursMinutesLabel: `${hours}:${m}`
+    };
 }
 
 

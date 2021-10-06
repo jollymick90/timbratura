@@ -1,17 +1,20 @@
-const step = 15;
+import { ClockTime } from "../model/clock-time";
 
-export const extractTimeWorkHM = (hStart: number, mStart: number, hEnd: number, mEnd: number) => {
+const step = 15;
+const debugEnabled = false;
+
+export const extractTimeWorkHM = (clockTimeStart: ClockTime, clockTimeEnd: ClockTime) => {
     const startDate = new Date();
     startDate.setMilliseconds(0);
     startDate.setSeconds(0);
-    startDate.setHours(hStart);
-    startDate.setMinutes(mStart);
+    startDate.setHours(clockTimeStart.hours);
+    startDate.setMinutes(clockTimeStart.minutes);
 
     const endDate = new Date();
     endDate.setMilliseconds(0);
     endDate.setSeconds(0);
-    endDate.setHours(hEnd);
-    endDate.setMinutes(mEnd);
+    endDate.setHours(clockTimeEnd.hours);
+    endDate.setMinutes(clockTimeEnd.minutes);
 
     return extractTimeWork(startDate, endDate);
 }
@@ -43,14 +46,35 @@ function isSameDay(dateStart: Date, dateEnd: Date): boolean {
 }
 function extractQda(dateStart: Date) {
     const minutes = dateStart.getMinutes();
-    let qda = Math.round(minutes / step);
-    let qdaRest = minutes % step;
-    if (qdaRest > 0)
-        qda += 1;
-
     const hours = dateStart.getHours();
-    qda = qda + hours * (60 / step);
-    return qda;
+    const debug = debugEnabled && (minutes !== 0 || hours !== 0)
+    const hoursStep = (60 / step)
+    const qdaH = hours * hoursStep;
+
+    let qdaM = Math.floor(minutes / step);
+    if (debug) {
+        console.log('#####');
+        console.log(`Input ${hours}:${minutes}`);
+    }
+    
+    const qdaRest = minutes % step;
+    
+    if (qdaRest > 0) {
+        const qdaPre = qdaM;
+        qdaM += 1;
+        if (debug) {
+            console.log(`QDA Minutes Adjusted qdapre:${qdaPre}; qdaM:${qdaM}; qdaRest:${qdaRest}`);
+        }
+    }
+
+    const qdaTot = qdaM + qdaH;
+    
+    if (debug) {
+        console.log( `QDA hours: ${qdaH}; QDA minutes: ${qdaM}, hoursStep: ${hoursStep}`);
+        console.log('#####');
+    }
+
+    return qdaTot;
 
 }
 
