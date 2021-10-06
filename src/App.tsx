@@ -6,7 +6,7 @@ function App() {
 
   return (
     
-    <div className="App h-full">
+    <div className="h-full m-4">
 
       <ClockInput></ClockInput>
 

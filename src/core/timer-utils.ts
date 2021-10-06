@@ -24,9 +24,8 @@ export const extractTimeWork = (dateStart: Date, dateEnd: Date) => {
     if (isSameDay(dateStart, dateEnd)) {
         const qdaStart = extractQda(dateStart);
         const qdaEnd = extractQda(dateEnd);
-        console.log(`qdaStart:${qdaStart};qdaEnd:${qdaEnd}`)
-        const qdatimeWork =  qdaEnd - qdaStart;
-        return qdatimeWork * step;
+        const qdatimeWork = qdaEnd - qdaStart;
+        return qdatimeWork > 0 ? qdatimeWork * step : 0;
     }
 
     return 0;

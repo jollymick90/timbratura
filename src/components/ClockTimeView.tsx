@@ -13,9 +13,9 @@ const ClockTimeView = (props?: ClockTimeViewP) => {
 
     return (
         <>
-            <p>                
+            <span>                
                 {sanitizedValue()}
-            </p>
+            </span>
         </>
     )
 
