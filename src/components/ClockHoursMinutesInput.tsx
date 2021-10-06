@@ -17,16 +17,29 @@ const ClockHoursMinutesInput = (props?: ClockHoursMinutesInputP) => {
     const [minutes, setMinutes] = useState(new Date().getMinutes());
     const hDay = props && props.allDay === true ? true : false;
     const formatHours = hDay ? 12 : 24;
-    // useEffect(() => {
-    //     // action on update of movies
-    // }, [movies]);
+
     useEffect(() => {
         updatePropsTime();
     }, [hours, minutes])
 
+
+    const setDefaultValue = (type: ClockFieldSet) => {
+        switch (type) {
+            case ClockFieldSet.HOURS:
+                setHours(0);
+                break;
+
+            case ClockFieldSet.MINUTES:
+                setMinutes(0);
+                break;
+
+            default:
+                break;
+        }
+    }
+
     const updatePropsTime = () => {
         if (props && props.handleClockTime) {
-            console.log(hours, minutes)
             const clockTime = {
                 hours: hours,
                 minutes: minutes,
@@ -38,44 +51,51 @@ const ClockHoursMinutesInput = (props?: ClockHoursMinutesInputP) => {
         }
     }
 
-    const setHoursMinutes = (value: number, type: ClockFieldSet) => {
-        switch (type) {
-            case ClockFieldSet.HOURS:
-                console.log("onChange", value, value % formatHours)
+    const setHoursMinutes = (event: React.ChangeEvent<HTMLInputElement>, type: ClockFieldSet) => {
+        try {
+            const valueRead = event.target.value;
+            const value = parseInt(valueRead)
+            if (!isNaN(value)) {
+                console.log(value)
+                switch (type) {
+                    case ClockFieldSet.HOURS:
+                        setHours(value % formatHours);
+                        break;
 
-                setHours(value % formatHours);
-                break;
+                    case ClockFieldSet.MINUTES:
+                        setMinutes(value % 60);
+                        break;
 
-            case ClockFieldSet.MINUTES:
-                console.log("onChange", value, value % 60)
+                    default:
+                        break;
+                }
+            } else {
+                setDefaultValue(type);
+            }
 
-                setMinutes(value % 60);
-                break;
-
-            default:
-                break;
+        } catch (error) {
+            console.log(error);
+            setDefaultValue(type);
         }
+
     }
 
     return (
         <>
             <label>
-                Hours:
                 <input
+                    className="border-2 text-center w-12"
                     type="numeric"
                     value={hours}
-                    onChange={e => setHoursMinutes(parseInt(e.target.value), ClockFieldSet.HOURS)}
-
-                    // onKeyUp={e => setHoursMinutes(parseInt(e.code), ClockFieldSet.HOURS)}
+                    onChange={event => setHoursMinutes(event, ClockFieldSet.HOURS)}
                 />
             </label>
             <label>
-                Minutes:
                 <input
+                    className="border-2 text-center w-12"
                     type="numeric"
                     value={minutes}
-                    onChange={e => setHoursMinutes(parseInt(e.target.value), ClockFieldSet.MINUTES)}
-                    // onKeyUp={e => setHoursMinutes(parseInt(e.code), ClockFieldSet.MINUTES)}
+                    onChange={event => setHoursMinutes(event, ClockFieldSet.MINUTES)}
                 />
             </label>
         </>

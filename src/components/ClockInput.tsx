@@ -1,29 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ClockTime, defaultTimeInit } from '../model/clock-time';
 import ClockHoursMinutesInput from './ClockHoursMinutesInput';
+import ClockTimeView from './ClockTimeView';
+
 
 const ClockInput = () => {
-    const defaultV: ClockTime = defaultTimeInit;
-    const [clockTime, setClockTime] = useState(defaultV);
+    const defaultStart: ClockTime = defaultTimeInit;
+    const defaultEnd: ClockTime = defaultTimeInit;
+
+    const [clockTimeStart, setClockTimeStart] = useState(defaultStart);
+    const [clockTimeEnd, setClockTimeEnd] = useState(defaultEnd);
+    
+    useEffect(() => {
+        try {
+            console.log("clockTimeStart", clockTimeStart);
+            console.log("clockTimeEnd", clockTimeEnd);    
+        } catch (error) {
+            console.log("useEffect",error)
+        }
+        
+    }, [clockTimeStart, clockTimeEnd])
     
     return (
         <>
             <ClockHoursMinutesInput
-                clockTime={clockTime}
-                handleClockTime={(clockTimeSetted) => setClockTime(clockTimeSetted)} />
+                clockTime={clockTimeStart}
+                handleClockTime={(clockTimeSetted) => setClockTimeStart(clockTimeSetted)} />
 
-            <div>
-                <p>
-                    {clockTime.hours}
-                </p>
-                <p>
-                    {clockTime.minutes}
-                </p>
-                <p>
-                    {clockTime.hoursMinutesLabel}
-                </p>
-            </div>
+            <ClockHoursMinutesInput
+                clockTime={clockTimeEnd}
+                handleClockTime={(clockTimeSetted) => setClockTimeEnd(clockTimeSetted)} />
+
+            
+            {/* <ClockTimeView clockTime={clockTimeStart} ></ClockTimeView>
+
+            <ClockTimeView clockTime={clockTimeEnd} ></ClockTimeView> */}
         </>
     )
 

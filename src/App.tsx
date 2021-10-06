@@ -15,9 +15,9 @@ function App() {
 
   function testCalc() {
     console.log("test");
-    console.log(hoursMinutes(extractTimeWorkHM(7,55,13,8)));
-    console.log(hoursMinutes(extractTimeWorkHM(13,8,13,47)));
-    console.log(hoursMinutes(extractTimeWorkHM(13,47,17,16)));
+    console.log(hoursMinutes(extractTimeWorkHM(8,45,13,23)));
+    // console.log(hoursMinutes(extractTimeWorkHM(13,8,13,47)));
+    console.log(hoursMinutes(extractTimeWorkHM(14,0,17,16)));
   }
 
   testCalc();
