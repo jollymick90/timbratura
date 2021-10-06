@@ -33,9 +33,9 @@ const ClockInput = () => {
                 handleClockTime={(clockTimeSetted) => setClockTimeEnd(clockTimeSetted)} />
 
             
-            {/* <ClockTimeView clockTime={clockTimeStart} ></ClockTimeView>
+            <ClockTimeView clockTime={clockTimeStart} ></ClockTimeView>
 
-            <ClockTimeView clockTime={clockTimeEnd} ></ClockTimeView> */}
+            <ClockTimeView clockTime={clockTimeEnd} ></ClockTimeView>
         </>
     )
 

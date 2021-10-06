@@ -6,23 +6,21 @@ export interface ClockTimeViewP {
     clockTime?: ClockTime;
 }
 const ClockTimeView = (props?: ClockTimeViewP) => {
-    const [clockTimeStart] = useState(props?.clockTime || defaultTimeInit);
+    // const [clockTimeStart] = useState(props?.clockTime || defaultTimeInit);
 
-    useEffect(() => {
-        console.log("input clockTimeStart", clockTimeStart)
-    }, [clockTimeStart])
+    // useEffect(() => {
+    //     console.log("input clockTimeStart", clockTimeStart)
+    // }, [clockTimeStart])
+
+    const sanitizedValue = () => {
+        return props?.clockTime?.hoursMinutesLabel || '00'
+    }
 
     return (
         <>
             <div>
                 <p>
-                    {clockTimeStart.hours}
-                </p>
-                <p>
-                    {clockTimeStart.minutes}
-                </p>
-                <p>
-                    {clockTimeStart.hoursMinutesLabel}
+                    {sanitizedValue()}
                 </p>
             </div>
         </>
