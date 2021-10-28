@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { ClockTime, defaultTimeInit } from "../model/clock-time";
+import { ClockTime } from "../model/clock-time";
 
 export interface ClockTimeViewP {
     allDay?: boolean;

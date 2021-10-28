@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { formattedDecimal } from "../core/time-print";
+// import { formattedDecimal } from "../../core/time-print";
 
-import { ClockTime } from "../model/clock-time";
+import { ClockTime } from "../../model/clock-time";
+import { buildClockTime } from "./utils";
 enum ClockFieldSet {
   MINUTES,
   HOURS,
@@ -12,15 +13,23 @@ export interface ClockHoursMinutesInputP {
   label?: string;
   handleClockTime?: (clockTimeSetted: ClockTime) => void;
 }
-const ClockHoursMinutesInput = (props?: ClockHoursMinutesInputP) => {
+const ClockHoursMinutesInput = (props: ClockHoursMinutesInputP) => {
+  
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
-  const hDay = props && props.allDay === true ? true : false;
-  const formatHours = hDay ? 12 : 24;
 
+  const { allDay, label, handleClockTime } = props
+
+  const hDay = allDay === true ? true : false;
+  const formatHours = hDay ? 12 : 24;
+  
   useEffect(() => {
-    updatePropsTime();
-  }, [hours, minutes]);
+    if (handleClockTime) {
+      const c = buildClockTime(hours, minutes)
+      handleClockTime(c);
+    } 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },  [hours, minutes]);
 
   const setDefaultValue = (type: ClockFieldSet) => {
     switch (type) {
@@ -37,19 +46,7 @@ const ClockHoursMinutesInput = (props?: ClockHoursMinutesInputP) => {
     }
   };
 
-  const updatePropsTime = () => {
-    if (props && props.handleClockTime) {
-      const clockTime = {
-        hours: hours,
-        minutes: minutes,
-        hoursMinutesLabel: `${formattedDecimal(hours)}:${formattedDecimal(
-          minutes
-        )}`,
-      };
 
-      props.handleClockTime(clockTime);
-    }
-  };
 
   const setHoursMinutes = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -83,7 +80,7 @@ const ClockHoursMinutesInput = (props?: ClockHoursMinutesInputP) => {
   return (
     <>
       <div className="flex flex-col">
-        <label>{props?.label}</label>
+        <label>{label}</label>
         <div className="flex flex-row">
           <div className="flex flex-col m-4">
             <input
